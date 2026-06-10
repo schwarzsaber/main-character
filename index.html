@@ -785,15 +785,14 @@
                 newSchedule[day] = scheduleTemplate[day].map(block => {
                     let activity = block.activity;
                     
-                    // If this block has fasting start, calculate the time (16 hours before next day's end-fast)
+                    // If this block has fasting start, calculate the time (16 hours before next day's break-fast)
                     if (block.fastingStart) {
-                        // End-fast is at offset 3.75 + 0.5 = 4.25 hours from wake-up next day
-                        // So fasting should start 16 hours before that = 4.25 - 16 = -11.75 hours from next wake
-                        // Which is 24 - 11.75 = 12.25 hours from current wake
-                        let fastingOffset = 12.25;
+                        // Break-fast next day = next check-in + 3.5h (minus shift).
+                        // Assuming next check-in ≈ today's, break-fast ≈ wake + 3.5h next day.
+                        // 16h before that = wake + 3.5h + 24h - 16h = wake + 11.5h (minus shift).
+                        let fastingOffset = 11.5;
                         
                         // Adjust fasting time if sleep is shifted (earlier sleep = earlier fasting)
-                        // Convert sleep shift minutes to hours and subtract
                         fastingOffset -= (sleepShift / 60);
                         
                         const fastingTime = offsetToTime(wakeUpTime, fastingOffset);
@@ -1264,8 +1263,8 @@
                 
                 const chillTimeStr = `${String(chillHour).padStart(2, '0')}:${String(chillMin).padStart(2, '0')}`;
                 
-                // Calculate fasting start time (12.25 hours from wake, adjusted for shift)
-                const fastingOffset = 12.25 - (minutes / 60);
+                // Calculate fasting start time (11.5 hours from wake for 16h window, adjusted for shift)
+                const fastingOffset = 11.5 - (minutes / 60);
                 const fastHour = Math.floor(parseInt(hours) + fastingOffset);
                 const fastMin = Math.round((fastingOffset - Math.floor(fastingOffset)) * 60 + parseInt(mins));
                 

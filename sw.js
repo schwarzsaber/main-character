@@ -20,8 +20,12 @@ self.addEventListener('push', (e) => {
         body: data.body || '',
         tag: data.tag || 'mce',
         requireInteraction: !!data.requireInteraction,
-        icon: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'512\' height=\'512\'%3E%3Crect width=\'512\' height=\'512\' fill=\'%23667eea\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' font-size=\'300\' dominant-baseline=\'middle\' text-anchor=\'middle\'%3E⚡%3C/text%3E%3C/svg%3E',
-        badge: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'96\' height=\'96\'%3E%3Crect width=\'96\' height=\'96\' fill=\'%23667eea\'/%3E%3C/svg%3E'
+        // Large in-tray icon: a purple lightning bolt on a transparent background.
+        icon: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' width=\'192\' height=\'192\'%3E%3Cpath d=\'M13 2L4.5 13.5H11L9.5 22 19.5 9.5H13L13 2Z\' fill=\'%23764ba2\'/%3E%3C/svg%3E',
+        // Small status-bar badge: bolt shape only, white on transparent. Android
+        // turns the opaque pixels into the monochrome silhouette, so a bare bolt
+        // (no background rectangle) yields a bolt-shaped status icon, not a square.
+        badge: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' width=\'96\' height=\'96\'%3E%3Cpath d=\'M13 2L4.5 13.5H11L9.5 22 19.5 9.5H13L13 2Z\' fill=\'white\'/%3E%3C/svg%3E'
     };
     if (data.actions) options.actions = data.actions;
     if (data.vibrate) options.vibrate = data.vibrate;

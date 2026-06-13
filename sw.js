@@ -20,12 +20,12 @@ self.addEventListener('push', (e) => {
         body: data.body || '',
         tag: data.tag || 'mce',
         requireInteraction: !!data.requireInteraction,
-        // Large in-tray icon: full-colour crown emoji, close-cropped (large glyph,
-        // transparent background) so it fills the space without a wide border.
-        icon: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'192\' height=\'192\'%3E%3Ctext x=\'50%25\' y=\'52%25\' font-size=\'176\' dominant-baseline=\'central\' text-anchor=\'middle\'%3E%F0%9F%91%91%3C/text%3E%3C/svg%3E',
-        // Small status-bar badge: a crown-shaped vector in white on transparent,
-        // so Android's monochrome silhouette is crown-shaped rather than a square.
-        badge: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' width=\'96\' height=\'96\'%3E%3Cpath d=\'M3 7l3.5 3L12 4l5.5 6L21 7l-1.5 12h-15L3 7z\' fill=\'white\'/%3E%3C/svg%3E'
+        // Large in-tray icon: full-colour lightning bolt emoji, close-cropped.
+        icon: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'192\' height=\'192\'%3E%3Ctext x=\'50%25\' y=\'52%25\' font-size=\'176\' dominant-baseline=\'central\' text-anchor=\'middle\'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E',
+        // Small status-bar badge: the bolt EMOJI itself on a transparent
+        // background (no rectangle). Android derives the silhouette from the
+        // emoji glyph's opaque pixels, giving a bolt-shaped mono icon.
+        badge: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'96\' height=\'96\'%3E%3Ctext x=\'50%25\' y=\'52%25\' font-size=\'88\' dominant-baseline=\'central\' text-anchor=\'middle\'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E'
     };
     if (data.actions) options.actions = data.actions;
     if (data.vibrate) options.vibrate = data.vibrate;
